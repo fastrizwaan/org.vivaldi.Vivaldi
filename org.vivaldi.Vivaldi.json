@@ -1,0 +1,184 @@
+{
+   "app-id": "org.vivaldi.Vivaldi",
+   "runtime": "org.freedesktop.Platform",
+   "runtime-version": "20.08",
+   "sdk": "org.freedesktop.Sdk",
+   "command": "vivaldi",
+   "separate-locales": false,
+   "build-options": {
+      "no-debuginfo": false
+   },
+   "finish-args": [
+      "--device=all",
+      "--env=GTK_PATH=/app/lib/gtkmodules",
+      "--share=ipc",
+      "--share=network",
+      "--socket=cups",
+      "--socket=pulseaudio",
+      "--socket=x11",
+      "--socket=wayland",
+      "--require-version=1.8.2",
+      "--system-talk-name=org.freedesktop.UPower",
+      "--talk-name=org.freedesktop.FileManager1",
+      "--talk-name=org.freedesktop.Notifications",
+      "--talk-name=org.freedesktop.secrets",
+      "--talk-name=org.gnome.SessionManager",
+      "--talk-name=org.kde.kwalletd5",
+      "--talk-name=org.kde.kwalletd",
+      "--system-talk-name=org.freedesktop.Avahi",
+      "--filesystem=xdg-run/pipewire-0",
+      "--filesystem=xdg-documents",
+      "--filesystem=xdg-download",
+      "--filesystem=xdg-music",
+      "--filesystem=xdg-videos",
+      "--filesystem=xdg-pictures",
+      "--filesystem=~/.config/vivaldi",
+      "--filesystem=~/.local/lib/vivaldi/WidevineCdm",
+      "--own-name=org.mpris.MediaPlayer2.chromium.*",
+      "--filesystem=xdg-download"
+   ],
+   "modules": [
+      "libsecret.json",
+      {
+         "name": "libcups",
+         "make-args": [
+            "libs"
+         ],
+         "no-make-install": true,
+         "post-install": [
+            "make install-headers install-libs"
+         ],
+         "cleanup": [
+            "/include"
+         ],
+         "sources": [
+            {
+               "type": "archive",
+               "url": "https://github.com/apple/cups/releases/download/v2.3.3/cups-2.3.3-source.tar.gz",
+               "sha256": "261fd948bce8647b6d5cb2a1784f0c24cc52b5c4e827b71d726020bcc502f3ee"
+            }
+         ]
+      },
+      {
+         "name": "gtk-cups-backend",
+         "buildsystem": "meson",
+         "make-args": [
+            "modules/printbackends/libprintbackend-cups.so"
+         ],
+         "no-make-install": true,
+         "post-install": [
+            "install -Dm 755 modules/printbackends/libprintbackend-cups.so -t /app/lib/gtkmodules/3.0.0/printbackends/"
+         ],
+         "sources": [
+            {
+               "type": "git",
+               "url": "https://gitlab.gnome.org/GNOME/gtk.git",
+               "tag": "3.24.23",
+               "commit": "016e8c55ab924c9ef4d32c8cb06253b1dc1be60d"
+            }
+         ]
+      },
+      {
+         "name": "gtk-settings",
+         "buildsystem": "simple",
+         "build-commands": [
+            "install -Dm 644 gtk-settings.ini /app/etc/xdg/gtk-3.0/settings.ini"
+         ],
+         "sources": [
+            {
+               "type": "file",
+               "path": "gtk-settings.ini"
+            }
+         ]
+      },
+      {
+         "name": "pipewire",
+         "buildsystem": "meson",
+         "config-opts": [
+            "-Dgstreamer=disabled",
+            "-Dman=false",
+            "-Dsystemd=false"
+         ],
+         "sources": [
+            {
+               "type": "git",
+               "url": "https://github.com/PipeWire/pipewire.git",
+               "tag": "0.2.7"
+            }
+         ]
+      },
+      {
+         "name": "zypak",
+         "sources": [
+            {
+               "type": "git",
+               "url": "https://github.com/refi64/zypak",
+               "tag": "v2021.02",
+               "commit": "ae8b0423588479d8403c192feb630c582656bee6"
+            }
+         ]
+      },
+      {
+         "name": "flextop",
+         "buildsystem": "meson",
+         "sources": [
+            {
+               "type": "git",
+               "url": "https://github.com/refi64/flextop",
+               "commit": "485c332c7ec36a8b74be8f3622fc756ac6263f40"
+            }
+         ]
+      },
+      {
+         "name": "vivaldi",
+         "buildsystem": "simple",
+         "build-commands": [
+            "install -Dm 755 libffmpeg.so /app/var/opt/vivaldi/media-codecs-89.0.4389.90/libffmpeg.so",
+            "install -Dm 755 vivaldi.sh /app/bin/vivaldi",
+            "install -Dm 755 apply_extra /app/bin/apply_extra",
+            "install -Dm 644 -t /app/share/flatpak-vivaldi flatpak_policy.json",
+            "install -Dm 755 stub_sandbox.sh /app/bin/stub_sandbox"
+         ],
+         "sources": [
+            {
+               "type": "extra-data",
+               "url": "https://downloads.vivaldi.com/stable/vivaldi-stable_3.8.2259.37-1_amd64.deb",
+               "sha256": "47047ff8e2dfec6f3c21ed7fbd84e0a3188b84e670169ee1da5e5053e550f1d2",
+               "filename": "vivaldi-stable.deb",
+               "x-checker-data": {
+                  "type": "debian-repo",
+                  "package-name": "vivaldi-stable",
+                  "root": "https://downloads.vivaldi.com/stable",
+                  "dist": "stable",
+                  "component": "main"
+               },
+               "size": 82408824
+            },
+            {
+               "type": "script",
+               "dest-filename": "stub_sandbox.sh",
+               "commands": [
+                  "echo \"Stub sandbox ignoring command: $@\"",
+                  "exit 1"
+               ]
+            },
+            {
+               "type": "file",
+               "path": "vivaldi.sh"
+            },
+            {
+               "type": "file",
+               "path": "apply_extra"
+            },
+            {
+               "type": "file",
+               "path": "flatpak_policy.json"
+            },
+            {
+               "type": "file",
+               "path": "libffmpeg.so"
+            }
+         ]
+      }
+   ]
+}

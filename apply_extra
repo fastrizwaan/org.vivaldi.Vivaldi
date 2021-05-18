@@ -1,0 +1,8 @@
+#!/usr/bin/bash
+
+set -eu
+
+bsdtar xOf vivaldi-stable.deb data.tar.xz | tar xJ --strip 2 ./opt
+rm /app/extra/vivaldi-stable.deb
+
+install -Dm755 /app/bin/stub_sandbox vivaldi-sandbox
