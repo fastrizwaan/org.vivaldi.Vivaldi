@@ -5,6 +5,7 @@ This is a testing repository for trying to build the Vivaldi Browser into a Flat
 * clone repository
 * cd into the repository folder
 * run this command to build `flatpak-builder build-dir org.vivaldi.Vivaldi.json --install --user`
+* run this command to execute the package in testing `flatpak run org.vivaldi.Vivaldi`
 
 ## Assumptions
 

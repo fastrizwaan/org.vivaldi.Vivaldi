@@ -32,8 +32,6 @@
       "--filesystem=xdg-music",
       "--filesystem=xdg-videos",
       "--filesystem=xdg-pictures",
-      "--filesystem=~/.config/vivaldi",
-      "--filesystem=~/.local/lib/vivaldi/WidevineCdm",
       "--own-name=org.mpris.MediaPlayer2.chromium.*",
       "--filesystem=xdg-download"
    ],
@@ -134,10 +132,10 @@
          "buildsystem": "simple",
          "build-commands": [
             "install -Dm 755 libffmpeg.so /app/var/opt/vivaldi/media-codecs-89.0.4389.90/libffmpeg.so",
-            "install -Dm 755 vivaldi.sh /app/bin/vivaldi",
+            "install -Dm 755 stub_sandbox.sh /app/bin/stub_sandbox",
             "install -Dm 755 apply_extra /app/bin/apply_extra",
-            "install -Dm 644 -t /app/share/flatpak-vivaldi flatpak_policy.json",
-            "install -Dm 755 stub_sandbox.sh /app/bin/stub_sandbox"
+            "install -Dm 755 vivaldi.sh /app/bin/vivaldi",
+            "install -Dm 644 -t /app/share/flatpak-vivaldi flatpak_policy.json"
          ],
          "sources": [
             {
