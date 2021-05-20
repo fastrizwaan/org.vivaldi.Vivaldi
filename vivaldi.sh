@@ -85,5 +85,6 @@ exec 2> >(exec cat >&2)
 export XCURSOR_PATH=$(echo "$XDG_DATA_DIRS" | sed 's,\(:\|$\),/icons\1,g')
 export TMPDIR="$XDG_RUNTIME_DIR/app/$FLATPAK_ID"
 export ZYPAK_SANDBOX_FILENAME=vivaldi-sandbox
+export ZYPAK_EXPOSE_WIDEVINE_PATH=/var/home/giesiger/.var/app/org.vivaldi.Vivaldi/config/vivaldi/WidevineCdm
 
-exec zypak-wrapper.sh /app/extra/vivaldi/vivaldi-bin "$@"
+ exec zypak-wrapper.sh /app/extra/vivaldi/vivaldi-bin "$@" 
