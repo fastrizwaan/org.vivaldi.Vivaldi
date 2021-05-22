@@ -132,15 +132,16 @@
          "name": "vivaldi",
          "buildsystem": "simple",
          "build-commands": [
-	    "bsdtar xOf vivaldi-stable.deb data.tar.xz | tar xJ --strip 2 ./opt",
-	    "mkdir -p /app/var/opt",
-	    "mv vivaldi /app/var/opt/",
+		    "find .",
+		    "bsdtar xOf vivaldi-stable.deb data.tar.xz | tar xJ --strip 2 ./opt",
+			"mkdir -p /app/var/opt",
+			"mv vivaldi /app/var/opt/",
             "install -Dm 755 libffmpeg.so      /app/var/opt/vivaldi/media-codecs-89.0.4389.90/libffmpeg.so",
             "install -Dm 755 stub_sandbox.sh   /app/bin/stub_sandbox",
             "install -Dm 755 apply_extra       /app/bin/apply_extra",
             "install -Dm 644 libffmpeg.so      /app/var/opt/vivaldi/lib/libffmpeg.so",
-            "install -Dm 644 libwidevinecdm.so /app/var/opt/vivaldi/lib/libwidevinecdm.so",
-	    "install -Dm 644 libwidevinecdm.so /app/var/opt/vivaldi/lib/libwidevinecdm.so",
+			"install -Dm 644 libwidevinecdm.so /app/var/opt/vivaldi/lib/libwidevinecdm.so",
+			"install -Dm 644 libwidevinecdm.so /app/var/opt/vivaldi/lib/libwidevinecdm.so",
             "install -Dm 755 vivaldi.sh        /app/bin/vivaldi",
             "install -Dm 644 -t                /app/share/flatpak-vivaldi flatpak_policy.json",
 			
@@ -180,11 +181,13 @@
             },
             {
                "type": "file",
-               "path": "libffmpeg.so"
+               "path": "libffmpeg.so",
+			   "sha256": "94bf305c1a13ce70cc8ce448808c1f9b503f6e1996112507f7a7c194d7ef64d4"			   
             },
             {
                "type": "file",
-               "path": "libwidevinecdm.so"
+               "path": "libwidevinecdm.so",
+			   "sha256": "958a157a9e51fe1caf8e0981356ff61c586f6464db3044e9b5731f798d7b3b51"
             },
 			{
                "type": "file",
