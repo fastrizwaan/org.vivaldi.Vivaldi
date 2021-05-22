@@ -11,6 +11,7 @@ This is a testing repository for trying to build the Vivaldi Browser into a Flat
 
 * Browswer requires similar dependencies to other browsers (Edge, FireFox, Chromium)
 
-* Widevine and ffmpeg need to work properly for the browser to be successful
+~~* Widevine and ffmpeg need to work properly for the browser to be successful~~
+* Widewine and ffmpeg works!
 
 * LD_Preload is going to be a problem as it is required for both zypak and Vivaldi
