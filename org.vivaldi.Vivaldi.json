@@ -33,7 +33,8 @@
       "--filesystem=xdg-videos",
       "--filesystem=xdg-pictures",
       "--own-name=org.mpris.MediaPlayer2.chromium.*",
-      "--filesystem=xdg-download"
+      "--filesystem=xdg-download",
+      "--env=LD_LIBRARY_PATH=/app/var/opt/vivaldi/media-codecs-89.0.4389.90/:/app/extra/vivaldi/lib/"
    ],
    "modules": [
       "libsecret.json",
@@ -131,12 +132,13 @@
          "name": "vivaldi",
          "buildsystem": "simple",
          "build-commands": [
-            "install -Dm 755 libffmpeg.so /app/var/opt/vivaldi/media-codecs-89.0.4389.90/libffmpeg.so",
-            "install -Dm 755 stub_sandbox.sh /app/bin/stub_sandbox",
-            "install -Dm 755 apply_extra /app/bin/apply_extra",
-            "install -Dm 644 libffmpeg.so /app/extra/vivaldi/lib/libffmpeg.so",
-            "install -Dm 755 vivaldi.sh /app/bin/vivaldi",
-            "install -Dm 644 -t /app/share/flatpak-vivaldi flatpak_policy.json"
+            "install -Dm 755 libffmpeg.so      /app/var/opt/vivaldi/media-codecs-89.0.4389.90/libffmpeg.so",
+            "install -Dm 755 stub_sandbox.sh   /app/bin/stub_sandbox",
+            "install -Dm 755 apply_extra       /app/bin/apply_extra",
+            "install -Dm 644 libffmpeg.so      /app/extra/vivaldi/lib/libffmpeg.so",
+			"install -Dm 644 libwidevinecdm.so /app/extra/vivaldi/lib/libwidevinecdm.so",
+            "install -Dm 755 vivaldi.sh        /app/bin/vivaldi",
+            "install -Dm 644 -t                /app/share/flatpak-vivaldi flatpak_policy.json"
          ],
          "sources": [
             {
@@ -176,6 +178,10 @@
             {
                "type": "file",
                "path": "libffmpeg.so"
+            },
+            {
+               "type": "file",
+               "path": "libwidevinecdm.so"
             }
          ]
       }
