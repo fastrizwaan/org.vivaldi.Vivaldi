@@ -138,8 +138,15 @@
             "install -Dm 644 libffmpeg.so      /app/extra/vivaldi/lib/libffmpeg.so",
 			"install -Dm 644 libwidevinecdm.so /app/extra/vivaldi/lib/libwidevinecdm.so",
             "install -Dm 755 vivaldi.sh        /app/bin/vivaldi",
-            "install -Dm 644 -t                /app/share/flatpak-vivaldi flatpak_policy.json"
+            "install -Dm 644 -t                /app/share/flatpak-vivaldi flatpak_policy.json",
+			
+			"mkdir -p /app/share/icons/hicolor/256x256/applications/",
+			"mkdir -p /app/share/applications/",
+			"install -Dm 644 org.vivaldi.Vivaldi.desktop  /app/share/applications/",
+			"mkdir -p /app/share/icons/hicolor/256x256/apps/",
+			"install -Dm 644 org.vivaldi.Vivaldi.png /app/share/icons/hicolor/256x256/apps/org.vivaldi.Vivaldi.png"
          ],
+		 
          "sources": [
             {
                "type": "extra-data",
@@ -182,6 +189,14 @@
             {
                "type": "file",
                "path": "libwidevinecdm.so"
+            },
+			{
+               "type": "file",
+               "path": "org.vivaldi.Vivaldi.desktop"
+            },
+			{
+               "type": "file",
+               "path": "org.vivaldi.Vivaldi.png"
             }
          ]
       }
