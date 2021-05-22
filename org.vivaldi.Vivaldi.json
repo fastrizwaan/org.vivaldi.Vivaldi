@@ -34,7 +34,7 @@
       "--filesystem=xdg-pictures",
       "--own-name=org.mpris.MediaPlayer2.chromium.*",
       "--filesystem=xdg-download",
-      "--env=LD_LIBRARY_PATH=/app/var/opt/vivaldi/media-codecs-89.0.4389.90/:/app/extra/vivaldi/lib/"
+      "--env=LD_LIBRARY_PATH=/app/var/opt/vivaldi/media-codecs-89.0.4389.90/:/app/var/opt/vivaldi/lib/"
    ],
    "modules": [
       "libsecret.json",
@@ -132,11 +132,16 @@
          "name": "vivaldi",
          "buildsystem": "simple",
          "build-commands": [
+		    "find .",
+		    "bsdtar xOf vivaldi-stable.deb data.tar.xz | tar xJ --strip 2 ./opt",
+			"mkdir -p /app/var/opt",
+			"mv vivaldi /app/var/opt/",
             "install -Dm 755 libffmpeg.so      /app/var/opt/vivaldi/media-codecs-89.0.4389.90/libffmpeg.so",
             "install -Dm 755 stub_sandbox.sh   /app/bin/stub_sandbox",
             "install -Dm 755 apply_extra       /app/bin/apply_extra",
-            "install -Dm 644 libffmpeg.so      /app/extra/vivaldi/lib/libffmpeg.so",
-			"install -Dm 644 libwidevinecdm.so /app/extra/vivaldi/lib/libwidevinecdm.so",
+            "install -Dm 644 libffmpeg.so      /app/var/opt/vivaldi/lib/libffmpeg.so",
+			"install -Dm 644 libwidevinecdm.so /app/var/opt/vivaldi/lib/libwidevinecdm.so",
+			"install -Dm 644 libwidevinecdm.so /app/var/opt/vivaldi/lib/libwidevinecdm.so",
             "install -Dm 755 vivaldi.sh        /app/bin/vivaldi",
             "install -Dm 644 -t                /app/share/flatpak-vivaldi flatpak_policy.json",
 			
@@ -149,18 +154,10 @@
 		 
          "sources": [
             {
-               "type": "extra-data",
+               "type": "file",
                "url": "https://downloads.vivaldi.com/stable/vivaldi-stable_3.8.2259.37-1_amd64.deb",
                "sha256": "47047ff8e2dfec6f3c21ed7fbd84e0a3188b84e670169ee1da5e5053e550f1d2",
-               "filename": "vivaldi-stable.deb",
-               "x-checker-data": {
-                  "type": "debian-repo",
-                  "package-name": "vivaldi-stable",
-                  "root": "https://downloads.vivaldi.com/stable",
-                  "dist": "stable",
-                  "component": "main"
-               },
-               "size": 82408824
+               "dest-filename": "vivaldi-stable.deb"
             },
             {
                "type": "script",
