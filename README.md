@@ -15,3 +15,15 @@ This is a testing repository for trying to build the Vivaldi Browser into a Flat
 * Widewine and ffmpeg works!
 
 * LD_Preload is going to be a problem as it is required for both zypak and Vivaldi
+
+### Install and Create Flatpak
+```
+ flatpak-builder --force-clean --install --user build-dir org.vivaldi.Vivaldi.json 
+ flatpak-builder --repo="repo" --force-clean build-dir/ org.vivaldi.Vivaldi.json 
+ flatpak build-bundle "repo" org.vivaldi.Vivaldi.flatpak org.vivaldi.Vivaldi 
+ 
+```
+### Install Vivaldi flatpak
+```
+ flatpak --user install org.vivaldi.Vivaldi.flatpak
+```
